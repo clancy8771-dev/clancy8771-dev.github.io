@@ -6,14 +6,16 @@
 <title>Portal UNAB - Notas Ciclo 01/2026</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
   body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
     background: #f1f1f1;
     color: #666;
   }
+
   header {
-    background-color: #10b94a; /* green header */
+    background-color: #10b94a;
     padding: 0.7rem 1rem;
     display: flex;
     align-items: center;
@@ -22,18 +24,21 @@
     font-weight: 700;
     font-size: 1.25rem;
   }
+
   .menu-icon {
     width: 28px;
     height: 18px;
     cursor: pointer;
     position: relative;
   }
+
   .menu-icon .bar {
     height: 3px;
     background-color: #7a7a7a;
     margin: 4px 0;
     border-radius: 1px;
   }
+
   .logout-btn {
     background-color: #79d6ff;
     color: #000;
@@ -45,11 +50,15 @@
     cursor: pointer;
     user-select: none;
   }
+
   main {
-    max-width: 600px;
+    max-width: 860px;
+    width: 100%;
     margin: 1rem auto 4rem;
-    padding: 0 0.75rem;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
+
   h1 {
     font-weight: 400;
     font-size: 1.5rem;
@@ -57,31 +66,30 @@
     align-items: center;
     gap: 0.4rem;
     color: #777;
+    padding: 0 0.5rem;
   }
+
   h1 svg {
     flex-shrink: 0;
     width: 24px;
     height: 24px;
     fill: #888;
   }
+
   .info-bar {
     background-color: #56b4d3;
     color: #222;
     padding: 0.4rem 0.9rem;
-    margin: 0.5rem 0 1.5rem 0;
+    margin: 0.5rem 0.5rem 1.5rem;
     border-radius: 0.2rem;
     font-weight: 500;
     font-size: 1rem;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
-    background: white;
-  }
+
   details {
     cursor: pointer;
   }
+
   summary {
     font-weight: 400;
     font-size: 1.2rem;
@@ -90,9 +98,11 @@
     border-bottom: 1px solid #ddd;
     user-select: none;
   }
+
   summary::-webkit-details-marker {
-    display:none;
+    display: none;
   }
+
   summary::before {
     content: "›";
     display: inline-block;
@@ -101,58 +111,69 @@
     transition: transform 0.3s ease;
     margin-right: 0.4rem;
   }
+
   details[open] summary::before {
     transform: rotate(90deg);
     color: #888;
   }
-  th, td {
-    padding: 0.45rem 0.6rem;
-    border: 1px solid #ddd;
-    text-align: center;
-    font-weight: 300;
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+    background: white;
+    table-layout: fixed;
+  }
+
+  /* Columna Asignatura */
   th:first-child, td:first-child {
+    width: 32%;
     text-align: left;
     font-weight: 600;
+    white-space: normal;
+    word-break: break-word;
   }
+
+  /* Columnas de notas: ancho igual */
+  th:not(:first-child), td:not(:first-child) {
+    width: calc(68% / 8);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  th, td {
+    padding: 0.45rem 0.4rem;
+    border: 1px solid #ddd;
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+
   th {
     background-color: #f7f7f7;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: #444;
+    text-align: center;
   }
+
   .grade {
     border-radius: 5px;
-    padding: 0.15rem 0.5rem;
+    padding: 0.15rem 0.4rem;
     font-weight: 700;
     color: white;
     display: inline-block;
-    min-width: 2.2em;
+    min-width: 2em;
   }
-  .grade.green {
-    background-color: #10b94a;
-  }
-  .grade.orange {
-    background-color: #efa318;
-  }
-  /* For mobile: stack smaller text */
-  @media (max-width: 420px) {
-    body {
-      font-size: 0.9rem;
-    }
-    header {
-      font-size: 1.1rem;
-    }
-    main {
-      margin: 0.7rem auto 3rem;
-      padding: 0 0.5rem;
-    }
-    h1 {
-      font-size: 1.25rem;
-    }
-    th, td {
-      padding: 0.3rem 0.4rem;
-    }
-  }
+
+  .grade.green  { background-color: #10b94a; }
+  .grade.orange  { background-color: #10b94a; }
+
+
   footer {
     width: 100%;
     background-color: #6dd2f2;
@@ -166,6 +187,28 @@
     bottom: 0;
     left: 0;
   }
+
+  /* =============================================
+     PORTRAIT (vertical): ocultar columnas L
+  ============================================= */
+  @media screen and (orientation: portrait) {
+    th:nth-child(2), td:nth-child(2),
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(6), td:nth-child(6) {
+      display: none;
+    }
+  }
+
+  /* =============================================
+     LANDSCAPE (horizontal): mostrar todo
+  ============================================= */
+  @media screen and (orientation: landscape) {
+    th:nth-child(2), td:nth-child(2),
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(6), td:nth-child(6) {
+      display: table-cell;
+    }
+  }
 </style>
 </head>
 <body>
@@ -178,6 +221,7 @@
     <div>Portal UNAB</div>
     <button class="logout-btn" type="button" aria-label="Salir del portal">Salir</button>
   </header>
+
   <main>
     <h1 aria-label="Notas Ciclo 01/2026">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 
@@ -191,49 +235,72 @@
 
     <details open>
       <summary> MARIO ISAAC FRANCO ORELLANA </summary>
-      <table role="table" aria-label="Notas del alumno Mario Isaac Franco Orellana">
-        <thead>
-          <tr>
-            <th scope="col">Asignatura</th>
-            <th scope="col">P1</th>
-            <th scope="col">P2</th>
-            <th scope="col">P3</th>
-            <th scope="col">Final</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Programación III</td>
-            <td>8.0</td>
-            <td>9.0</td>
-            <td>9.4</td>
-            <td><span class="grade green" aria-label="Nota final 9.2">9.2</span></td>
-          </tr>
-          <tr>
-            <td>Análisis y Diseño de Sistemas</td>
-            <td>7.0</td>
-            <td>8.0</td>
-            <td>9.0</td>
-            <td><span class="grade green" aria-label="Nota final 8.2">8.2</span></td>
-          </tr>
-          <tr>
-            <td>Liderazgo y Funciones Gerenciales</td>
-            <td>8.7</td>
-            <td>9.3</td>
-            <td>10.0</td>
-            <td><span class="grade green" aria-label="Nota final 9.7">9.7</span></td>
-          </tr>
-          <tr>
-            <td>Sistemas Operativos de Libre Distribución</td>
-            <td>8.6</td>
-            <td>9.5</td>
-            <td>9.8</td>
-            <td><span class="grade green" aria-label="Nota final 9.4">9.4</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table role="table" aria-label="Notas del alumno">
+          <thead>
+            <tr>
+              <th scope="col">Asignatura</th>
+              <th scope="col">L1</th>
+              <th scope="col">P1</th>
+              <th scope="col">L2</th>
+              <th scope="col">P2</th>
+              <th scope="col">L3</th>
+              <th scope="col">P3</th>
+              <th scope="col">Rep</th>
+              <th scope="col">Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Programación III</td>
+              <td>8.3</td>
+              <td>8.0</td>
+              <td>9.1</td>
+              <td>9.0</td>
+              <td>8.7</td>
+              <td>9.4</td>
+              <td>0.0</td>
+              <td><span class="grade green" aria-label="Nota final 9.2">9.2</span></td>
+            </tr>
+            <tr>
+              <td>Análisis y Diseño de Sistemas</td>
+              <td>8.6</td>
+              <td>7.0</td>
+              <td>8.9</td>
+              <td>8.0</td>
+              <td>9.2</td>
+              <td>8.3</td>
+              <td>0.0</td>
+              <td><span class="grade orange" aria-label="Nota final 8.2">8.2</span></td>
+            </tr>
+            <tr>
+              <td>Liderazgo y Funciones Gerenciales</td>
+              <td>9.3</td>
+              <td>8.7</td>
+              <td>8.4</td>
+              <td>9.3</td>
+              <td>8.8</td>
+              <td>10.0</td>
+              <td>0.0</td>
+              <td><span class="grade green" aria-label="Nota final 9.7">9.7</span></td>
+            </tr>
+            <tr>
+              <td>Sistemas Operativos de Libre Distribución</td>
+              <td>8.5</td>
+              <td>8.6</td>
+              <td>9.0</td>
+              <td>9.5</td>
+              <td>8.2</td>
+              <td>9.8</td>
+              <td>0.0</td>
+              <td><span class="grade green" aria-label="Nota final 9.4">9.4</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </details>
   </main>
+
   <footer>2015 - UNAB</footer>
 </body>
 </html>
